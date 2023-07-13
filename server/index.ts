@@ -72,4 +72,7 @@ alt.on('crc-appearance-apply', (player, data) => {
 
     // Eyes
     player.setEyeColor(data.eyes);
+
+    alt.emit('crc-appearance-updated', player, data);
+    alt.logDebug(`crc-preview-character | Appearance Updated`);
 });

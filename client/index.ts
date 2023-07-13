@@ -1,8 +1,8 @@
 import * as alt from 'alt-client';
 import * as native from 'natives';
-import * as I from '../shared/index';
+import * as shared from 'alt-shared';
 
-const defaultAppearance: I.Appearance = {
+const defaultAppearance: shared.Appearance = {
     sex: 0,
     faceFather: 0,
     faceMother: 0,
@@ -39,7 +39,11 @@ const defaultAppearance: I.Appearance = {
     hairOverlay: { collection: '', overlay: '' },
 };
 
-alt.on('crc-appearance-apply', (ped: number, data: I.Appearance) => {
+alt.on('crc-appearance-apply', (ped: number, data: shared.Appearance) => {
+    if (alt.Player.local.scriptID === ped) {
+        throw new Error('Cannot apply appearance to self. Use server-side setters.');
+    }
+
     data = Object.assign(defaultAppearance, data);
 
     native.clearPedDecorations(ped);
@@ -107,6 +111,9 @@ alt.on('crc-appearance-apply', (ped: number, data: I.Appearance) => {
     }
 
     native.setHeadBlendEyeColor(ped, data.eyes);
+
+    alt.emit('crc-appearance-updated', ped, data);
+    alt.logDebug(`crc-appearance | Ped Appearance Applied`);
 });
 
 alt.onServer('crc-appearance-set-decorations', (data: Array<{ collection: string; overlay: string }>) => {
