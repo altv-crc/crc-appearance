@@ -1,8 +1,8 @@
 import * as alt from 'alt-client';
 import * as native from 'natives';
-import * as shared from 'alt-shared';
+import { Appearance } from 'alt-crc';
 
-const defaultAppearance: shared.Appearance = {
+const defaultAppearance: Appearance = {
     sex: 0,
     faceFather: 0,
     faceMother: 0,
@@ -39,7 +39,7 @@ const defaultAppearance: shared.Appearance = {
     hairOverlay: { collection: '', overlay: '' },
 };
 
-alt.on('crc-appearance-apply', (ped: number, data: shared.Appearance) => {
+alt.on('crc-appearance-apply', (ped: number, data: Appearance) => {
     if (alt.Player.local.scriptID === ped) {
         throw new Error('Cannot apply appearance to self. Use server-side setters.');
     }

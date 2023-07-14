@@ -1,10 +1,10 @@
-declare module 'alt-shared' {
+declare module 'alt-crc' {
     /**
      * This interface is used to describe the overall Character Appearance.
      *
      * @interface Appearance
      */
-    export interface Appearance {
+    interface Appearance {
         /**
          * 0 - Female, 1 - Male
          * @type {number}
@@ -193,7 +193,7 @@ declare module 'alt-shared' {
      *
      * @interface OverlayInfo
      */
-    export interface OverlayInfo {
+    interface OverlayInfo {
         id: number;
         value: number;
         color1: number;
